@@ -1,0 +1,33 @@
+texmin:
+  restart: always
+  build: .
+  ports:
+    - "5000:5000"
+    - "8080:8080"
+    - "8888:8888"
+    - "2222:22"
+  links:
+    - mongo
+    - postgres
+  volumes:
+    - ./data/works:/home/tomohitoy/works
+
+mongo:
+  image: mongo
+  environment:
+    MONGODB_USER: tomohitoy
+    MONGODB_PASS: tomohitoy
+  ports:
+    - "27017:27017"
+  volumes:
+    - ./data/mongo:/data/db
+
+postgres:
+  image: postgres
+  environment:
+    POSTGRES_USER: tomohitoy
+    POSTGRES_PASSWORD: tomohitoy
+  ports:
+    - "5432:5432"
+  volumes:
+    - ./data/postgresql:/var/lib/postgresql/data
